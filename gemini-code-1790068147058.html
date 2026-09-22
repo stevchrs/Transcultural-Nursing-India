@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcultural Nursing in India</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saffron: '#FF9933',
+                        indiagreen: '#138808',
+                        navychakra: '#000080',
+                        warmivory: '#FAF8F5',
+                        spicegold: '#D4AC0D'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF8F5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .tab-btn.active {
+            background-color: #000080;
+            color: #FFFFFF;
+            border-bottom: 4px solid #FF9933;
+        }
+        .sub-tab-btn.active {
+            background-color: #FF9933;
+            color: #FFFFFF;
+        }
+        /* Style untuk hover wilayah peta SVG */
+        .state-shape {
+            transition: opacity 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .state-shape:hover {
+            opacity: 0.8;
+            stroke: #000;
+            stroke-width: 2;
+        }
+    </style>
+</head>
+<body class="text-gray-800 min-h-screen flex flex-col">
+
+    <!-- Header Utama -->
+    <header class="bg-navychakra text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-saffron flex items-center justify-center text-navychakra font-bold text-xl border-2 border-white">
+                    🇮🇳
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wide">Transcultural Nursing in India</h1>
+                    <p class="text-xs text-saffron font-medium">Dashboard Pembelajaran Keperawatan Transkultural</p>
+                </div>
+            </div>
+            <!-- Bagian Pojok Kanan Atas -->
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg text-xs border border-white/20 font-semibold">
+                    <i class="fas fa-users text-saffron"></i>
+                    <span>Kelompok 1 Keperawatan Transkultural</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Keterangan Dashboard / Hero Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-saffron flex flex-col md:flex-row items-center gap-6">
+            <div class="flex-1">
+                <span class="inline-block px-3 py-1 bg-indiagreen/10 text-indiagreen text-xs font-semibold rounded-full mb-2">
+                    Keterangan Dashboard
+                </span>
+                <p class="text-gray-700 leading-relaxed font-medium text-base sm:text-lg">
+                    India adalah negara bagian Asia Selatan yang kaya akan keberagaman budaya, agama, dan bahasa, serta memiliki sistem pelayanan kesehatan terpadu yang memadukan teknologi kesehatan digital dengan pengobatan tradisional Ayurveda.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-3 w-full md:w-auto min-w-[280px]">
+                <div class="bg-warmivory p-3 rounded-xl border border-saffron/30 text-center">
+                    <span class="block text-xs text-gray-500 uppercase font-semibold">Total Populasi</span>
+                    <span class="text-xl font-bold text-navychakra">1,43 Miliar</span>
+                    <span class="block text-[10px] text-gray-400">Terbesar di Dunia</span>
+                </div>
+                <div class="bg-warmivory p-3 rounded-xl border border-indiagreen/30 text-center">
+                    <span class="block text-xs text-gray-500 uppercase font-semibold">Markas Regional WHO</span>
+                    <span class="text-xl font-bold text-indiagreen">SEARO</span>
+                    <span class="block text-[10px] text-gray-400">New Delhi, India</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigasi Utama Tab Bagian -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <div class="flex overflow-x-auto gap-2 bg-white p-2 rounded-xl shadow-sm border border-gray-200 no-scrollbar">
+            <button onclick="switchMainTab('bagian1')" id="main-tab-bagian1" class="tab-btn active px-5 py-3 rounded-lg text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2">
+                <i class="fas fa-flag"></i> Bagian 1: Country Profile
+            </button>
+            <button onclick="switchMainTab('bagian2')" id="main-tab-bagian2" class="tab-btn px-5 py-3 rounded-lg text-sm font-bold whitespace-nowrap text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-2">
+                <i class="fas fa-hospital-user"></i> Bagian 2: Posisi India di WHO
+            </button>
+            <button onclick="switchMainTab('bagian3')" id="main-tab-bagian3" class="tab-btn px-5 py-3 rounded-lg text-sm font-bold whitespace-nowrap text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-2">
+                <i class="fas fa-notes-medical"></i> Bagian 3: Epidemiologi & MoHFW
+            </button>
+            <button onclick="switchMainTab('bagian4')" id="main-tab-bagian4" class="tab-btn px-5 py-3 rounded-lg text-sm font-bold whitespace-nowrap text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-2">
+                <i class="fas fa-laptop-medical"></i> Bagian 4: Digital Health & Aplikasi
+            </button>
+            <button onclick="switchMainTab('bagian5')" id="main-tab-bagian5" class="tab-btn px-5 py-3 rounded-lg text-sm font-bold whitespace-nowrap text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-2">
+                <i class="fas fa-leaf"></i> Bagian 5: Ayurveda & AYUSH
+            </button>
+            <button onclick="switchMainTab('bagian6')" id="main-tab-bagian6" class="tab-btn px-5 py-3 rounded-lg text-sm font-bold whitespace-nowrap text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-2">
+                <i class="fas fa-lightbulb"></i> Bagian 6: Refleksi Keperawatan Indonesia
+            </button>
+        </div>
+    </nav>
+
+    <!-- KONTEN UTAMA -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex-1">
+
+        <!-- BAGIAN 1: COUNTRY PROFILE -->
+        <div id="main-content-bagian1" class="main-tab-content space-y-6">
+            <!-- Sub Navigasi Bagian 1 -->
+            <div class="flex overflow-x-auto gap-2 bg-warmivory p-2 rounded-lg border border-gray-200">
+                <button onclick="switchSubTab('peta')" id="sub-tab-peta" class="sub-tab-btn active px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap transition-all">
+                    Peta & Wilayah
+                </button>
+                <button onclick="switchSubTab('demografi')" id="sub-tab-demografi" class="sub-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-gray-700 hover:bg-gray-200 transition-all">
+                    Demografi Penduduk
+                </button>
+                <button onclick="switchSubTab('agama')" id="sub-tab-agama" class="sub-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-gray-700 hover:bg-gray-200 transition-all">
+                    Agama & Kepercayaan
+                </button>
+                <button onclick="switchSubTab('bahasa')" id="sub-tab-bahasa" class="sub-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-gray-700 hover:bg-gray-200 transition-all">
+                    Bahasa Resmi
+                </button>
+                <button onclick="switchSubTab('implikasi')" id="sub-tab-implikasi" class="sub-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-gray-700 hover:bg-gray-200 transition-all">
+                    Implikasi Keperawatan
+                </button>
+            </div>
+
+            <!-- Sub Tab: Peta dan Wilayah -->
+            <div id="sub-content-peta" class="sub-tab-content space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <div class="flex justify-between items-center mb-4 pb-2 border-b">
+                            <h3 class="text-lg font-bold text-navychakra flex items-center gap-2">
+                                <i class="fas fa-map-pin text-saffron"></i> Peta Negara India & Pembagian Wilayah
+                            </h3>
+                            <span class="text-xs bg-saffron/10 text-saffron font-semibold px-2.5 py-1 rounded-md">
+                                28 Negara Bagian & 8 Wilayah Persatuan
+                            </span>
+                        </div>
+                        <div class="relative bg-[#eaf3f7] p-4 rounded-xl border border-gray-200 flex flex-col items-center">
+                            
+                            <!-- PETA POLITIK INDIA BERDASARKAN GAMBAR -->
+                            <svg viewBox="0 0 1000 1000" class="w-full max-h-[520px] object-contain rounded-lg shadow-sm" xmlns="http://www.w3.org/2000/svg">
+                              <g font-family="Arial, sans-serif" font-weight="bold" text-anchor="middle">
+                                
+                                <!-- JUDUL ATAS KANAN -->
+                                <text x="700" y="140" font-size="42" fill="#000" text-anchor="start">INDIA</text>
+                                <text x="700" y="175" font-size="20" fill="#4b5563" letter-spacing="2" text-anchor="start">STATES &amp; TERRITORIES</text>
+                                <line x1="700" y1="195" x2="980" y2="195" stroke="#000" stroke-width="2"/>
+
+                                <!-- WILAYAH LAUT -->
+                                <text x="110" y="690" font-size="15" fill="#94a3b8" letter-spacing="1">ARABIAN SEA</text>
+                                <text x="670" y="735" font-size="15" fill="#94a3b8" letter-spacing="1">BAY OF BENGAL</text>
+                                <text x="245" y="905" font-size="13" fill="#94a3b8">LACCADIVE SEA</text>
+                                <text x="350" y="980" font-size="15" fill="#94a3b8" letter-spacing="1">INDIAN OCEAN</text>
+
+                                <!-- VAKTOR WILAYAH UTARA -->
+                                <!-- Jammu & Kashmir -->
+                                <path class="state-shape" d="M 238 88 L 295 105 L 308 152 L 250 162 L 238 128 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="245" y="120" font-size="9" fill="#fff">JAMMU &amp;</text>
+                                <text x="245" y="130" font-size="9" fill="#fff">KASHMIR</text>
+
+                                <!-- Ladakh -->
+                                <path class="state-shape" d="M 295 105 L 360 48 L 412 128 L 365 142 L 308 152 Z" fill="#ffea00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="348" y="98" font-size="11" fill="#000">LADAKH</text>
+
+                                <!-- Himachal Pradesh -->
+                                <path class="state-shape" d="M 308 152 L 365 142 L 388 185 L 332 208 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="350" y="172" font-size="8.5" fill="#fff">HIMACHAL PRADESH</text>
+
+                                <!-- Punjab -->
+                                <path class="state-shape" d="M 250 162 L 308 152 L 300 215 L 260 205 Z" fill="#ffea00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="282" y="195" font-size="9" fill="#000">PUNJAB</text>
+
+                                <!-- Uttarakhand -->
+                                <path class="state-shape" d="M 365 142 L 412 128 L 448 215 L 388 185 Z" fill="#5c677d" stroke="#fff" stroke-width="1.5"/>
+                                <text x="408" y="222" font-size="9" fill="#fff">UTTARAKHAND</text>
+
+                                <!-- Haryana & Delhi -->
+                                <path class="state-shape" d="M 280 205 L 348 200 L 332 288 L 298 250 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="302" y="258" font-size="8" fill="#fff">HARYANA</text>
+                                <circle cx="338" cy="285" r="4" fill="#ffea00"/>
+                                <text x="360" y="288" font-size="8" fill="#000" text-anchor="start">DELHI</text>
+
+                                <!-- WILAYAH BARAT & TENGAH -->
+                                <!-- Rajasthan -->
+                                <path class="state-shape" d="M 98 308 L 260 205 L 315 292 L 382 338 L 338 398 L 268 418 L 218 392 L 178 408 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="238" y="348" font-size="14" fill="#000">RAJASTHAN</text>
+
+                                <!-- Uttar Pradesh -->
+                                <path class="state-shape" d="M 348 200 L 448 215 L 568 288 L 528 392 L 382 338 L 315 292 Z" fill="#ffea00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="458" y="342" font-size="14" fill="#000">UTTAR PRADESH</text>
+
+                                <!-- Gujarat -->
+                                <path class="state-shape" d="M 75 422 L 178 408 L 218 392 L 260 478 L 208 558 L 158 558 L 102 485 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="178" y="458" font-size="13" fill="#fff">GUJARAT</text>
+
+                                <!-- Madhya Pradesh -->
+                                <path class="state-shape" d="M 268 418 L 382 338 L 528 392 L 532 462 L 448 588 L 338 522 L 278 488 Z" fill="#5c677d" stroke="#fff" stroke-width="1.5"/>
+                                <text x="368" y="458" font-size="13" fill="#fff">MADHYA PRADESH</text>
+
+                                <!-- WILAYAH TIMUR -->
+                                <!-- Bihar -->
+                                <path class="state-shape" d="M 568 288 L 678 358 L 658 412 L 538 412 L 528 392 Z" fill="#5c677d" stroke="#fff" stroke-width="1.5"/>
+                                <text x="608" y="375" font-size="12" fill="#fff">BIHAR</text>
+
+                                <!-- Jharkhand -->
+                                <path class="state-shape" d="M 538 412 L 658 412 L 678 438 L 638 498 L 552 462 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="588" y="438" font-size="10" fill="#fff">JHARKHAND</text>
+
+                                <!-- West Bengal -->
+                                <path class="state-shape" d="M 678 358 L 708 358 L 718 438 L 712 508 L 672 508 L 638 498 L 678 438 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="680" y="458" font-size="9" fill="#fff">WEST BENGAL</text>
+
+                                <!-- Chhattisgarh -->
+                                <path class="state-shape" d="M 532 462 L 552 462 L 638 498 L 578 688 L 498 622 L 448 588 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="518" y="508" font-size="11" fill="#fff">CHHATTISGARH</text>
+
+                                <!-- Odisha -->
+                                <path class="state-shape" d="M 638 498 L 672 508 L 652 588 L 518 642 L 578 688 Z" fill="#ffea00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="598" y="542" font-size="13" fill="#000">ODISHA</text>
+
+                                <!-- TIMUR LAUT (NORTH-EAST) -->
+                                <!-- Sikkim -->
+                                <path class="state-shape" d="M 685 298 L 712 298 L 708 335 L 685 335 Z" fill="#ffea00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="698" y="308" font-size="8" fill="#000">SIKKIM</text>
+
+                                <!-- Arunachal Pradesh -->
+                                <path class="state-shape" d="M 795 248 L 975 258 L 955 318 L 868 328 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="898" y="288" font-size="10" fill="#fff">ARUNACHAL PRADESH</text>
+
+                                <!-- Assam -->
+                                <path class="state-shape" d="M 738 335 L 868 328 L 898 378 L 818 388 L 778 378 Z" fill="#ffea00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="838" y="358" font-size="10" fill="#000">ASSAM</text>
+
+                                <!-- Nagaland -->
+                                <path class="state-shape" d="M 868 328 L 955 318 L 918 378 L 898 378 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="895" y="362" font-size="7" fill="#fff">NAGALAND</text>
+
+                                <!-- Manipur -->
+                                <path class="state-shape" d="M 898 378 L 918 378 L 888 438 L 858 422 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="880" y="405" font-size="7.5" fill="#fff">MANIPUR</text>
+
+                                <!-- Mizoram -->
+                                <path class="state-shape" d="M 858 422 L 888 438 L 852 495 L 825 458 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="848" y="448" font-size="7" fill="#fff">MIZORAM</text>
+
+                                <!-- Tripura -->
+                                <path class="state-shape" d="M 785 428 L 818 428 L 805 462 L 785 458 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="798" y="438" font-size="7" fill="#fff">TRIPURA</text>
+
+                                <!-- Meghalaya -->
+                                <path class="state-shape" d="M 738 358 L 818 358 L 818 388 L 738 378 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="778" y="375" font-size="7" fill="#fff">MEGHALAYA</text>
+
+                                <!-- WILAYAH SELATAN -->
+                                <!-- Maharashtra -->
+                                <path class="state-shape" d="M 208 558 L 260 478 L 278 488 L 338 522 L 448 588 L 428 688 L 358 698 L 218 642 Z" fill="#ffea00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="318" y="605" font-size="14" fill="#000">MAHARASHTRA</text>
+
+                                <!-- Telangana -->
+                                <path class="state-shape" d="M 448 588 L 498 622 L 468 708 L 368 678 L 428 688 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="418" y="638" font-size="11" fill="#fff">TELANGANA</text>
+
+                                <!-- Andhra Pradesh -->
+                                <path class="state-shape" d="M 518 642 L 578 688 L 438 808 L 352 795 L 368 678 L 468 708 Z" fill="#5c677d" stroke="#fff" stroke-width="1.5"/>
+                                <text x="408" y="732" font-size="11" fill="#fff">ANDHRA PRADESH</text>
+
+                                <!-- Karnataka -->
+                                <path class="state-shape" d="M 218 642 L 358 698 L 368 678 L 352 795 L 348 838 L 278 832 Z" fill="#2d6a4f" stroke="#fff" stroke-width="1.5"/>
+                                <text x="288" y="745" font-size="11" fill="#fff">KARNATAKA</text>
+
+                                <!-- Goa -->
+                                <path class="state-shape" d="M 235 702 L 255 702 L 252 725 L 235 720 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="245" y="715" font-size="8" fill="#fff">GOA</text>
+
+                                <!-- Tamil Nadu -->
+                                <path class="state-shape" d="M 352 795 L 438 808 L 398 928 L 328 928 L 348 838 Z" fill="#ffea00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="378" y="872" font-size="11" fill="#000">TAMIL NADU</text>
+
+                                <!-- Kerala -->
+                                <path class="state-shape" d="M 278 832 L 348 838 L 328 928 L 298 888 Z" fill="#ff7b00" stroke="#fff" stroke-width="1.5"/>
+                                <text x="328" y="902" font-size="9" fill="#fff">KERALA</text>
+
+                                <!-- UNION TERRITORIES / KEPULAUAN -->
+                                <!-- Puducherry -->
+                                <circle cx="418" cy="832" r="4" fill="#ffea00"/>
+                                <text x="390" y="835" font-size="8" fill="#000">PUDUCHERRY</text>
+
+                                <!-- Dadra & Nagar Haveli / Daman & Diu -->
+                                <circle cx="205" cy="552" r="4" fill="#ffea00"/>
+                                <text x="185" y="550" font-size="7" fill="#000" text-anchor="end">DAMAN &amp; DIU</text>
+                                <text x="218" y="572" font-size="7" fill="#000" text-anchor="start">DADRA &amp; NAGAR HAVELI</text>
+
+                                <!-- Lakshadweep -->
+                                <g stroke="#94a3b8" stroke-width="1" fill="#fff">
+                                  <rect x="28" y="805" width="120" height="158" fill="#fff" opacity="0.8"/>
+                                </g>
+                                <g fill="#2d6a4f">
+                                  <circle cx="88" cy="845" r="3"/>
+                                  <circle cx="80" cy="865" r="2"/>
+                                  <circle cx="92" cy="895" r="3"/>
+                                </g>
+                                <text x="88" y="910" font-size="9" fill="#000">LAKSHADWEEP</text>
+
+                                <!-- Andaman & Nicobar -->
+                                <g fill="#2d6a4f">
+                                  <circle cx="838" cy="745" r="3"/>
+                                  <circle cx="842" cy="762" r="4"/>
+                                  <circle cx="838" cy="782" r="3"/>
+                                  <circle cx="822" cy="832" r="3"/>
+                                  <circle cx="875" cy="922" r="4"/>
+                                  <circle cx="892" cy="952" r="3"/>
+                                </g>
+                                <text x="830" y="860" font-size="11" fill="#000">ANDAMAN &amp; NICOBAR</text>
+
+                              </g>
+                            </svg>
+
+                            <p class="text-xs text-gray-500 mt-3 text-center">
+                                Peta Administrasi Negara India menampilkan pembagian wilayah 28 negara bagian (seperti Rajasthan, Maharashtra, Tamil Nadu, Uttar Pradesh, Kerala, West Bengal) dan 8 wilayah persatuan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+                            <h4 class="text-md font-bold text-navychakra mb-3 flex items-center gap-2">
+                                <i class="fas fa-globe-asia text-indiagreen"></i> Informasi Geografis
+                            </h4>
+                            <ul class="space-y-2.5 text-xs">
+                                <li class="flex justify-between pb-2 border-b">
+                                    <span class="text-gray-600">Ibu Kota</span>
+                                    <span class="font-bold text-navychakra">New Delhi</span>
+                                </li>
+                                <li class="flex justify-between pb-2 border-b">
+                                    <span class="text-gray-600">Luas Wilayah</span>
+                                    <span class="font-bold text-navychakra">3.287.263 km²</span>
+                                </li>
+                                <li class="flex justify-between pb-2 border-b">
+                                    <span class="text-gray-600">Peringkat Luas</span>
+                                    <span class="font-bold text-navychakra">Ke-7 di Dunia</span>
+                                </li>
+                                <li class="flex justify-between pb-2 border-b">
+                                    <span class="text-gray-600">Kepadatan Penduduk</span>
+                                    <span class="font-bold text-saffron">Sekitar 435 jiwa / km²</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+                            <h4 class="text-md font-bold text-navychakra mb-3 flex items-center gap-2">
+                                <i class="fas fa-city text-saffron"></i> Kota-Kota Utama
+                            </h4>
+                            <div class="space-y-2 text-xs">
+                                <div class="p-2 bg-warmivory rounded-lg border-l-4 border-navychakra">
+                                    <span class="font-bold text-navychakra block">Mumbai</span>
+                                    <span class="text-gray-600">Pusat keuangan & ekonomi utama India.</span>
+                                </div>
+                                <div class="p-2 bg-warmivory rounded-lg border-l-4 border-saffron">
+                                    <span class="font-bold text-navychakra block">New Delhi</span>
+                                    <span class="text-gray-600">Pusat pemerintahan & lokasi Markas WHO SEARO.</span>
+                                </div>
+                                <div class="p-2 bg-warmivory rounded-lg border-l-4 border-indiagreen">
+                                    <span class="font-bold text-navychakra block">Bengaluru</span>
+                                    <span class="text-gray-600">Pusat teknologi digital & inovasi medis.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Tab: Demografi Penduduk -->
+            <div id="sub-content-demografi" class="sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-t-4 border-saffron">
+                        <span class="text-xs text-gray-500 font-semibold uppercase">Total Penduduk</span>
+                        <h3 class="text-2xl font-bold text-navychakra mt-1">1,43 Miliar</h3>
+                        <p class="text-xs text-indiagreen mt-1"><i class="fas fa-arrow-up"></i> Negara terpadat di dunia</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-t-4 border-indiagreen">
+                        <span class="text-xs text-gray-500 font-semibold uppercase">Sebaran Pedesaan</span>
+                        <h3 class="text-2xl font-bold text-indiagreen mt-1">64%</h3>
+                        <p class="text-xs text-gray-500 mt-1">Tinggal di daerah rural / desa</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-t-4 border-navychakra">
+                        <span class="text-xs text-gray-500 font-semibold uppercase">Sebaran Perkotaan</span>
+                        <h3 class="text-2xl font-bold text-navychakra mt-1">36%</h3>
+                        <p class="text-xs text-gray-500 mt-1">Tinggal di wilayah perkotaan</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-t-4 border-spicegold">
+                        <span class="text-xs text-gray-500 font-semibold uppercase">Rata-rata Usia</span>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-1">28,7 Tahun</h3>
+                        <p class="text-xs text-saffron mt-1 font-medium">Mayoritas populasi produktif</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h4 class="text-md font-bold text-navychakra mb-4">Distribusi Tempat Tinggal</h4>
+                        <div class="h-60 relative">
+                            <canvas id="chartSebaran"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h4 class="text-md font-bold text-navychakra mb-4">Indikator Harapan Hidup & Melek Huruf</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>Angka Harapan Hidup Rata-Rata</span>
+                                    <span class="text-navychakra">70,4 Tahun</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                    <div class="bg-navychakra h-full rounded-full" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>Tingkat Melek Huruf Laki-Laki</span>
+                                    <span class="text-indiagreen">82,1%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                    <div class="bg-indiagreen h-full rounded-full" style="width: 82%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>Tingkat Melek Huruf Perempuan</span>
+                                    <span class="text-saffron">65,5%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                    <div class="bg-saffron h-full rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Tab: Agama & Kepercayaan -->
+            <div id="sub-content-agama" class="sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-lg font-bold text-navychakra mb-2">Komposisi Keagamaan</h4>
+                            <p class="text-xs text-gray-600 mb-4">
+                                Kebudayaan dan kepercayaan di India sangat memengaruhi persepsi sehat-sakit, pola makan, serta ritual keperawatan pasien.
+                            </p>
+                        </div>
+                        <div class="h-60 relative">
+                            <canvas id="chartAgama"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h4 class="text-lg font-bold text-navychakra mb-4">Rincian Persentase Agama di India</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-saffron">
+                                <div class="flex justify-between items-center"><span class="font-bold text-navychakra text-xs">Hinduism</span><span class="font-extrabold text-saffron">79,8%</span></div>
+                                <p class="text-[11px] text-gray-600 mt-1">Mayoritas vegetaris, memercayai prinsip karma dan pengobatan Ayurveda.</p>
+                            </div>
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-indiagreen">
+                                <div class="flex justify-between items-center"><span class="font-bold text-navychakra text-xs">Islam</span><span class="font-extrabold text-indiagreen">14,2%</span></div>
+                                <p class="text-[11px] text-gray-600 mt-1">Menerapkan makanan Halal dan privasi gender yang tinggi saat tindakan medis.</p>
+                            </div>
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-navychakra">
+                                <div class="flex justify-between items-center"><span class="font-bold text-navychakra text-xs">Christianity</span><span class="font-extrabold text-navychakra">2,3%</span></div>
+                                <p class="text-[11px] text-gray-600 mt-1">Banyak berada di wilayah India Selatan (Kerala, Goa) dan Timur Laut.</p>
+                            </div>
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-spicegold">
+                                <div class="flex justify-between items-center"><span class="font-bold text-navychakra text-xs">Sikhism</span><span class="font-extrabold text-spicegold">1,7%</span></div>
+                                <p class="text-[11px] text-gray-600 mt-1">Berpusat di Punjab, menjaga identitas fisik (sorban / Kesh) saat perawatan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Tab: Bahasa Resmi -->
+            <div id="sub-content-bahasa" class="sub-tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h4 class="text-lg font-bold text-navychakra mb-2">22 Bahasa Resmi di India</h4>
+                    <p class="text-xs text-gray-600 mb-4">Diakui secara resmi dalam Jadwal Kedelapan Konstitusi India. Bahasa kerja pemerintah pusat adalah Hindi dan Inggris.</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                        <div class="p-2 bg-warmivory rounded-lg text-center border"><strong>Hindi</strong> (43,6%)</div>
+                        <div class="p-2 bg-warmivory rounded-lg text-center border"><strong>Bengali</strong> (8,0%)</div>
+                        <div class="p-2 bg-warmivory rounded-lg text-center border"><strong>Marathi</strong> (6,8%)</div>
+                        <div class="p-2 bg-warmivory rounded-lg text-center border"><strong>Telugu</strong> (6,7%)</div>
+                        <div class="p-2 bg-warmivory rounded-lg text-center border"><strong>Tamil</strong> (5,7%)</div>
+                        <div class="p-2 bg-warmivory rounded-lg text-center border"><strong>Urdu</strong> (4,2%)</div>
+                        <div class="p-2 bg-warmivory rounded-lg text-center border"><strong>Gujarati</strong> (4,6%)</div>
+                        <div class="p-2 bg-warmivory rounded-lg text-center border"><strong>Lainnya</strong> (20,4%)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Tab: Implikasi Keperawatan -->
+            <div id="sub-content-implikasi" class="sub-tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h4 class="text-lg font-bold text-navychakra mb-4"><i class="fas fa-user-nurse text-indiagreen"></i> Implikasi Keperawatan Transkultural</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-warmivory rounded-xl border border-saffron/30">
+                            <span class="font-bold text-saffron block text-sm mb-1">Modifikasi Diet</span>
+                            <p class="text-gray-600">Memastikan ketersediaan makanan vegetaris murni tanpa daging atau telur sesuai keyakinan pasien.</p>
+                        </div>
+                        <div class="p-4 bg-warmivory rounded-xl border border-indiagreen/30">
+                            <span class="font-bold text-indiagreen block text-sm mb-1">Integrasi Ayurveda</span>
+                            <p class="text-gray-600">Melakukan asesmen konsumsi obat tradisional herbal untuk mencegah interaksi dengan obat kimia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- BAGIAN 2: POSISI INDIA DI WHO -->
+        <div id="main-content-bagian2" class="main-tab-content hidden space-y-6">
+
+            <!-- Card 1: Alasan India Masuk Regional SEARO -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3 mb-4 pb-2 border-b">
+                    <div class="w-10 h-10 rounded-xl bg-navychakra text-white flex items-center justify-center font-bold">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-navychakra">1. Mengapa India Masuk Regional WHO SEARO?</h3>
+                        <p class="text-xs text-gray-500">Kawasan Regional Asia Tenggara (South-East Asia Regional Office)</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 bg-warmivory rounded-xl border border-gray-200">
+                        <h4 class="font-bold text-navychakra text-sm mb-1 flex items-center gap-2">
+                            <i class="fas fa-map-marked text-saffron"></i> Faktor Geografis
+                        </h4>
+                        <p class="text-gray-600 leading-relaxed">
+                            Secara geografis, India terletak di Asia Selatan dan berbatasan langsung dengan negara-negara berkembang anggota SEARO seperti Nepal, Bangladesh, Bhutan, dan Sri Lanka.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-warmivory rounded-xl border border-gray-200">
+                        <h4 class="font-bold text-navychakra text-sm mb-1 flex items-center gap-2">
+                            <i class="fas fa-building text-indiagreen"></i> Pusat Markas SEARO
+                        </h4>
+                        <p class="text-gray-600 leading-relaxed">
+                            Kantor Regional WHO untuk Asia Tenggara (WHO SEARO) bertempat di New Delhi, India, menjadikannya hub koordinasi utama kebijakan kesehatan bagi 11 negara anggota.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-warmivory rounded-xl border border-gray-200">
+                        <h4 class="font-bold text-navychakra text-sm mb-1 flex items-center gap-2">
+                            <i class="fas fa-notes-medical text-spicegold"></i> Karakteristik Beban Penyakit
+                        </h4>
+                        <p class="text-gray-600 leading-relaxed">
+                            Memiliki profil kesehatan ganda (double burden of disease): kombinasi penyakit menular tropis (TB, Malaria) dan lonjakan penyakit tidak menular (Diabetes, Hipertensi).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Program-Program Utama WHO di India -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-navychakra mb-4 flex items-center gap-2">
+                    <i class="fas fa-tasks text-saffron"></i> 2. Program Utama WHO di India
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-saffron">
+                        <span class="font-bold text-navychakra block text-sm mb-1">Eliminasi Tuberkulosis</span>
+                        <p class="text-gray-600">Dukungan teknis untuk program TB Free India / NTEP guna menekan beban kasus TB terbesar di dunia.</p>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-indiagreen">
+                        <span class="font-bold text-navychakra block text-sm mb-1">Pengobatan Tradisional</span>
+                        <p class="text-gray-600">Mendirikan WHO Global Centre for Traditional Medicine (GCTM) di Jamnagar untuk standarisasi Ayurveda.</p>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-navychakra">
+                        <span class="font-bold text-navychakra block text-sm mb-1">Kesehatan Digital</span>
+                        <p class="text-gray-600">Penerapan identitas kesehatan digital (ABHA ID) dan penyediaan platform telemedisin eSanjeevani.</p>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-spicegold">
+                        <span class="font-bold text-navychakra block text-sm mb-1">Imunisasi & Surveilans</span>
+                        <p class="text-gray-600">Pengawasan mutu vaksin secara ketat dan pencegahan penyakit tropis terabaikan (Neglected Tropical Diseases).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Tabel Aktivitas, Proses, dan Hasil Program WHO -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-navychakra mb-4 flex items-center gap-2">
+                    <i class="fas fa-list-check text-indiagreen"></i> 3. Contoh Aktivitas, Proses Pelaksanaan, dan Hasilnya
+                </h3>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-navychakra text-white">
+                                <th class="p-3 rounded-tl-lg">Program / Aktivitas</th>
+                                <th class="p-3">Proses Pelaksanaan</th>
+                                <th class="p-3 rounded-tr-lg">Hasil & Dampak Utama</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-saffron">
+                                    Program Eliminasi Polio
+                                    <span class="block text-[10px] text-gray-500 font-normal">National Polio Surveillance Project (NPSP)</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    1. Kerjasama WHO & Kemenkes India mengerahkan ribuan petugas.<br>
+                                    2. Pelaksanaan vaksinasi tetes rumah ke rumah (door-to-door).<br>
+                                    3. Pemantauan digital kasus kelumpuhan layuh akut secara real-time.
+                                </td>
+                                <td class="p-3 font-bold text-indiagreen">
+                                    India Resmi Bebas Polio pada Tahun 2014.
+                                    <span class="block text-[10px] text-gray-500 font-normal">Salah satu pencapaian kesehatan masyarakat terbesar di dunia.</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-indiagreen">
+                                    Pusat Ayurveda Global (WHO GCTM)
+                                    <span class="block text-[10px] text-gray-500 font-normal">Lokasi: Jamnagar, Gujarat</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    1. Investasi bersama WHO dan Kementerian AYUSH India.<br>
+                                    2. Standarisasi ilmiah riset herbal Ayurveda berbasis bukti (evidence-based).<br>
+                                    3. Pengintegrasian terminologi Ayurveda ke dalam sistem ICD-11 WHO.
+                                </td>
+                                <td class="p-3 font-bold text-navychakra">
+                                    Pengakuan Ayurveda secara Global.
+                                    <span class="block text-[10px] text-gray-500 font-normal">Memudahkan perawat memverifikasi keamanan terapi komplementer pasien.</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-navychakra">
+                                    Telemedisin & ABDM
+                                    <span class="block text-[10px] text-gray-500 font-normal">Platform eSanjeevani & ABHA ID</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    1. WHO memberikan bantuan arsitektur keamanan data medis pasien.<br>
+                                    2. Pelatihan perawat desa (ASHAs) dalam mengoperasikan rekam medis digital.<br>
+                                    3. Konsultasi dokter spesialis jarak jauh untuk wilayah pedesaan.
+                                </td>
+                                <td class="p-3 font-bold text-saffron">
+                                    100 Juta+ Konsultasi Digital Terlaksana.
+                                    <span class="block text-[10px] text-gray-500 font-normal">Menghubungkan masyarakat pedesaan dengan fasilitas kesehatan tingkat lanjut.</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- BAGIAN 3: PROFIL EPIDEMIOLOGI & PROGRAM KEMENKES INDIA -->
+        <div id="main-content-bagian3" class="main-tab-content hidden space-y-6">
+
+            <!-- Card Profil Kemenkes India -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-navychakra">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-navychakra text-white flex items-center justify-center font-bold text-xl">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-saffron font-bold uppercase tracking-wider">Kementerian Kesehatan India</span>
+                        <h3 class="text-xl font-bold text-navychakra">Ministry of Health and Family Welfare (MoHFW)</h3>
+                        <p class="text-xs text-gray-500">
+                            Terdiri dari <strong>Department of Health and Family Welfare</strong> dan <strong>Department of Health Research</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 1: Kematian Ibu dan Anak -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3 mb-4 pb-2 border-b">
+                    <div class="w-10 h-10 rounded-xl bg-saffron text-white flex items-center justify-center font-bold">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-navychakra">1. Kesehatan & Kematian Ibu dan Anak (KIA)</h3>
+                        <p class="text-xs text-gray-500">Maternal Mortality Rate (MMR) & Infant Mortality Rate (IMR)</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 text-xs">
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-saffron">
+                        <span class="text-gray-500 font-semibold block uppercase">Angka Kematian Ibu (MMR)</span>
+                        <span class="text-2xl font-bold text-saffron block mt-1">97 / 100.000</span>
+                        <span class="text-gray-600 text-[11px]">Kelahiran Hidup (Penurunan dari 130)</span>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-indiagreen">
+                        <span class="text-gray-500 font-semibold block uppercase">Angka Kematian Bayi (IMR)</span>
+                        <span class="text-2xl font-bold text-indiagreen block mt-1">28 / 1.000</span>
+                        <span class="text-gray-600 text-[11px]">Kelahiran Hidup</span>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-navychakra">
+                        <span class="text-gray-500 font-semibold block uppercase">Kematian Balita (U5MR)</span>
+                        <span class="text-2xl font-bold text-navychakra block mt-1">32 / 1.000</span>
+                        <span class="text-gray-600 text-[11px]">Kelahiran Hidup</span>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-spicegold">
+                        <span class="text-gray-500 font-semibold uppercase block">Persalinan Faskes</span>
+                        <span class="text-2xl font-bold text-spicegold block mt-1">89%</span>
+                        <span class="text-gray-600 text-[11px]">Ditangani Tenaga Kesehatan</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="p-4 bg-warmivory rounded-xl border border-gray-200">
+                        <h4 class="font-bold text-navychakra text-sm mb-2">Penyebab Utama Kematian Ibu</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Pendarahan Pascapersalinan (Postpartum Hemorrhage / PPH)</li>
+                            <li>Gangguan Hipertensi Kehamilan & Eklampsia</li>
+                            <li>Sepsis pascamelahirkan</li>
+                            <li>Anemia berat pada ibu hamil</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border border-gray-200">
+                        <h4 class="font-bold text-navychakra text-sm mb-2">Penyebab Utama Kematian Bayi / Anak</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Komplikasi Lahir Prematur & BBLR</li>
+                            <li>Asfiksia Lahir & Trauma Persalinan</li>
+                            <li>Infeksi Neonatal & Sepsis</li>
+                            <li>Pneumonia dan Diare Akut</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Communicable vs Non-Communicable Diseases -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <!-- Communicable Diseases -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4 pb-2 border-b">
+                            <div class="w-10 h-10 rounded-xl bg-indiagreen text-white flex items-center justify-center font-bold">
+                                <i class="fas fa-virus"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-navychakra">2. Communicable Diseases</h3>
+                                <p class="text-xs text-gray-500">Penyakit Menular</p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Meskipun trennya menurun, penyakit menular masih menjadi tantangan kesehatan masyarakat yang besar di wilayah pedesaan dan pemukiman padat.
+                        </p>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-saffron">
+                                <span class="font-bold text-navychakra block text-sm">Tuberkulosis (TB)</span>
+                                <p class="text-gray-600 mt-0.5">India menyumbang sekitar 27% dari total kasus TB global. Program fokus pada pencegahan TB resisten obat (MDR-TB).</p>
+                            </div>
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-indiagreen">
+                                <span class="font-bold text-navychakra block text-sm">Malaria & Dengue</span>
+                                <p class="text-gray-600 mt-0.5">Penyakit akibat gigitan nyamuk (vector-borne) yang meningkat signifikan selama musim hujan monson.</p>
+                            </div>
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-navychakra">
+                                <span class="font-bold text-navychakra block text-sm">Hepatitis B/C & HIV</span>
+                                <p class="text-gray-600 mt-0.5">Fokus utama program penanggulangan berada pada kelompok risiko tinggi dan transmisi ibu-ke-anak.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Non-Communicable Diseases -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4 pb-2 border-b">
+                            <div class="w-10 h-10 rounded-xl bg-navychakra text-white flex items-center justify-center font-bold">
+                                <i class="fas fa-heartpulse"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-navychakra">3. Non-Communicable Diseases (NCDs)</h3>
+                                <p class="text-xs text-gray-500">Penyakit Tidak Menular (Menyumbang 66% Kematian di India)</p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Terjadi pergeseran epidemiologi akibat urbanisasi pesat dan perubahan gaya hidup. NCDs menjadi penyebab utama kematian di India saat ini.
+                        </p>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-saffron">
+                                <span class="font-bold text-navychakra block text-sm">Penyakit Jantung Kardiovaskular</span>
+                                <p class="text-gray-600 mt-0.5">Penyebab nomor 1 kematian dewasa di India, sering dialami pada usia lebih muda dibanding populasi Barat.</p>
+                            </div>
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-spicegold">
+                                <span class="font-bold text-navychakra block text-sm">Diabetes Melitus (Diabetes Capital)</span>
+                                <p class="text-gray-600 mt-0.5">Dikenal sebagai salah satu ibu kota diabetes dunia dengan lebih dari 100 juta penderita.</p>
+                            </div>
+                            <div class="p-3 bg-warmivory rounded-xl border-l-4 border-indiagreen">
+                                <span class="font-bold text-navychakra block text-sm">Penyakit Paru Kronis (COPD)</span>
+                                <p class="text-gray-600 mt-0.5">Dipicu oleh polusi udara tinggi di kota-kota besar serta penggunaan bahan bakar biomassa tradisional di pedesaan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Card 3: Emerging, Non-Emerging, dan Re-emerging Diseases -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3 mb-4 pb-2 border-b">
+                    <div class="w-10 h-10 rounded-xl bg-spicegold text-white flex items-center justify-center font-bold">
+                        <i class="fas fa-biohazard"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-navychakra">4. Klasifikasi Kategori Penyakit Khusus</h3>
+                        <p class="text-xs text-gray-500">Emerging Diseases, Non-Emerging Diseases, & Re-Emerging Diseases</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    
+                    <!-- Emerging Diseases -->
+                    <div class="p-4 bg-warmivory rounded-xl border border-saffron/30">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-3 h-3 rounded-full bg-saffron"></span>
+                            <h4 class="font-bold text-navychakra text-sm">Emerging Diseases</h4>
+                        </div>
+                        <p class="text-gray-500 text-[11px] mb-3">Penyakit baru yang muncul atau serangannya meningkat secara drastis.</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-saffron block">Virus Nipah</strong>
+                                Wabah zoonosis berulang dengan mortalitas tinggi di negara bagian Kerala.
+                            </li>
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-saffron block">COVID-19 & Varian Baru</strong>
+                                Gelombang epidemiologi yang mendorong transformasi digital kesehatan.
+                            </li>
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-saffron block">Flu Burung (Avian Influenza)</strong>
+                                Kasus flu H5N1 berkala pada peternakan unggas dan transmisi lokal.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Non-Emerging Diseases -->
+                    <div class="p-4 bg-warmivory rounded-xl border border-indiagreen/30">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-3 h-3 rounded-full bg-indiagreen"></span>
+                            <h4 class="font-bold text-navychakra text-sm">Non-Emerging Diseases</h4>
+                        </div>
+                        <p class="text-gray-500 text-[11px] mb-3">Penyakit konvensional/endemis yang pola penyebarannya sudah stabil dan dipahami.</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-indiagreen block">Demam Tifoid & Kolera</strong>
+                                Infeksi saluran pencernaan yang umum akibat sanitasi dan air bersih yang terbatas.
+                            </li>
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-indiagreen block">Rabies Endemis</strong>
+                                Kasus gigitan anjing liar yang terkontrol lewat program vaksinasi hewan dan manusia.
+                            </li>
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-indiagreen block">Kecacingan (STH)</strong>
+                                Infeksi cacing tanah pada anak yang ditanggulangi lewat program deworming nasional.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Re-Emerging Diseases -->
+                    <div class="p-4 bg-warmivory rounded-xl border border-navychakra/30">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-3 h-3 rounded-full bg-navychakra"></span>
+                            <h4 class="font-bold text-navychakra text-sm">Re-Emerging Diseases</h4>
+                        </div>
+                        <p class="text-gray-500 text-[11px] mb-3">Penyakit lama yang pernah berhasil ditekan namun muncul kembali mengancam.</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-navychakra block">Tuberkulosis Kebal Obat (MDR-TB)</strong>
+                                Kemunculan kembali TB akibat putus obat dan resistensi regimen pengobatan.
+                            </li>
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-navychakra block">Demam Semak (Scrub Typhus)</strong>
+                                Infeksi bakteri dari tungau yang muncul kembali di wilayah pedesaan tertentu.
+                            </li>
+                            <li class="p-2 bg-white rounded border">
+                                <strong class="text-navychakra block">Kanker Serviks & Difteri</strong>
+                                Muncul di kantong populasi dengan cakupan imunisasi dan skrining yang rendah.
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Card 4: Tabel Program Unggulan Kemenkes India (MoHFW) -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3 mb-4 pb-2 border-b">
+                    <div class="w-10 h-10 rounded-xl bg-indiagreen text-white flex items-center justify-center font-bold">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-navychakra">5. Program Kesehatan Utama MoHFW</h3>
+                        <p class="text-xs text-gray-500">Aktivitas, Proses Pelaksanaan, dan Hasil Program Kementerian Kesehatan India</p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-navychakra text-white">
+                                <th class="p-3 rounded-tl-lg">Nama Program & Nama Kemenkes</th>
+                                <th class="p-3">Aktivitas Utama</th>
+                                <th class="p-3">Proses Pelaksanaan</th>
+                                <th class="p-3 rounded-tr-lg">Hasil & Dampak Utama</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-saffron">
+                                    National Health Mission (NHM)
+                                    <span class="block text-[10px] text-gray-500 font-normal">Mencakup NRHM (Desa) & NUHM (Kota)</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Penguatan faskes tingkat dasar.<br>
+                                    • Perekrutan kader kesehatan wanita desa (ASHA).<br>
+                                    • Pengadaan ambulans gratis (108/102).
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Kader ASHA mendatangi rumah warga desa untuk edukasi gizi, mengantar ibu hamil bersalin ke faskes, serta memberikan obat dasar.
+                                </td>
+                                <td class="p-3 font-bold text-indiagreen">
+                                    Persalinan Faskes Meningkat hingga 89%.
+                                    <span class="block text-[10px] text-gray-500 font-normal">Menjadi garda terdepan layanan kesehatan desa di India.</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-indiagreen">
+                                    Ayushman Bharat (PM-JAY & HWCs)
+                                    <span class="block text-[10px] text-gray-500 font-normal">Jaminan Kesehatan Nasional India</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Asuransi kesehatan rawat inap bagi keluarga miskin.<br>
+                                    • Pengembangan Ayushman Arogya Mandir (Puskesmas Primer).
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Masyarakat terdaftar mendapat Kartu Ayushman digital untuk berobat gratis (cashless) di RS pemerintah/swasta yang bermitra.
+                                </td>
+                                <td class="p-3 font-bold text-navychakra">
+                                    Perlindungan Dana 500.000 Rupee / Keluarga / Tahun.
+                                    <span class="block text-[10px] text-gray-500 font-normal">Melindungi lebih dari 500 juta jiwa masyarakat miskin.</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-navychakra">
+                                    Mission Indradhanush
+                                    <span class="block text-[10px] text-gray-500 font-normal">Universal Immunization Programme</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Akselerasi imunisasi dasar lengkap bagi anak & ibu hamil.<br>
+                                    • Cakupan 12 penyakit yang dapat dicegah vaksin.
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Melakukan pemetaan survei (headcount) anak yang belum divaksin, lalu membuka pos vaksinasi intensif di daerah pedalaman.
+                                </td>
+                                <td class="p-3 font-bold text-saffron">
+                                    40 Juta+ Anak & 11 Juta Ibu Hamil Divaksinasi.
+                                    <span class="block text-[10px] text-gray-500 font-normal">Meningkatkan cakupan imunisasi nasional secara signifikan.</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-spicegold">
+                                    National TB Elimination Programme (NTEP)
+                                    <span class="block text-[10px] text-gray-500 font-normal">& TB Mukt Bharat Abhiyaan</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Skrining TB aktif massal.<br>
+                                    • Pemberian obat gratis & insentif gizi (Nikshay Poshan Yojana).
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Pasien TB terdaftar di platform digital Ni-kshay dan menerima bantuan gizi Rp100 ribu/bulan langsung ke rekening bank.
+                                </td>
+                                <td class="p-3 font-bold text-indiagreen">
+                                    Peningkatan Pelaporan Kasus & Keberhasilan Sembuh.
+                                    <span class="block text-[10px] text-gray-500 font-normal">Sistem pelacakan digital terintegrasi di seluruh negeri.</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-saffron">
+                                    Pradhan Mantri Surakshit Matritva Abhiyan (PMSMA)
+                                    <span class="block text-[10px] text-gray-500 font-normal">& Program Standarisasi LaQshya</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Pemeriksaan kehamilan rutin bulanan gratis.<br>
+                                    • Peningkatan mutu ruang bersalin & ICU kebidanan.
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Setiap tanggal 9 bulan berjalan, seluruh klinik/RS pemerintah menyediakan dokter spesialis untuk periksa kehamilan gratis.
+                                </td>
+                                <td class="p-3 font-bold text-navychakra">
+                                    Penurunan MMR dari 130 menjadi 97 / 100rb.
+                                    <span class="block text-[10px] text-gray-500 font-normal">Mencapai Target Pembangunan Berkelanjutan (SDGs).</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- BAGIAN 4: DIGITAL HEALTH DI INDIA -->
+        <div id="main-content-bagian4" class="main-tab-content hidden space-y-6">
+
+            <!-- Card Header ABDM -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-saffron">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-saffron text-white flex items-center justify-center font-bold text-xl">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-indiagreen font-bold uppercase tracking-wider">Ekosistem Kesehatan Digital Nasional</span>
+                        <h3 class="text-xl font-bold text-navychakra">Ayushman Bharat Digital Mission (ABDM)</h3>
+                        <p class="text-xs text-gray-500">
+                            Infrastruktur kesehatan digital terpadu yang dikembangkan oleh National Health Authority (NHA) untuk menghubungkan seluruh pemangku kepentingan medis di India.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 1: Fokus Aplikasi Utama - eSanjeevani -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex items-center justify-between mb-4 pb-2 border-b">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indiagreen text-white flex items-center justify-center font-bold">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-navychakra">1. Telemedisin Nasional: eSanjeevani</h3>
+                            <p class="text-xs text-gray-500">Layanan Layanan Tele-konsultasi Gratis Terbesar di Dunia (MoHFW & C-DAC)</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-indiagreen/10 text-indiagreen font-bold px-3 py-1 rounded-full">
+                        > 200 Juta Konsultasi
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Varian 1 -->
+                    <div class="p-4 bg-warmivory rounded-xl border border-saffron/40 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-saffron text-sm">eSanjeevani AB-AAM</span>
+                                <span class="text-[10px] bg-saffron text-white px-2 py-0.5 rounded">Doctor-to-Doctor</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-3 leading-relaxed">
+                                Beroperasi dengan model <strong>Hub and Spoke</strong>. Kader kesehatan/perawat (CHO) di fasilitas kesehatan desa (Spoke) menghubungkan pasien secara video conference ke dokter spesialis di RS Rujukan / Fakultas Kedokteran (Hub).
+                            </p>
+                        </div>
+                        <div class="p-2.5 bg-white rounded-lg border text-[11px] text-gray-500">
+                            <strong class="text-navychakra block">Manfaat Utama:</strong> Memungkinkan masyarakat pedalaman mengakses saran dokter spesialis tanpa perlu melakukan perjalanan jauh ke kota.
+                        </div>
+                    </div>
+
+                    <!-- Varian 2 -->
+                    <div class="p-4 bg-warmivory rounded-xl border border-navychakra/40 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-navychakra text-sm">eSanjeevani OPD</span>
+                                <span class="text-[10px] bg-navychakra text-white px-2 py-0.5 rounded">Patient-to-Doctor</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-3 leading-relaxed">
+                                Layanan "Stay Home OPD" yang memungkinkan masyarakat umum berkonsultasi secara langsung dengan dokter berlisensi dari mana saja melalui smartphone atau web portal tanpa biaya.
+                            </p>
+                        </div>
+                        <div class="p-2.5 bg-white rounded-lg border text-[11px] text-gray-500">
+                            <strong class="text-navychakra block">Fitur Utama:</strong> Resep digital (e-Prescription), rekam medis digital otomatis, dan terintegrasi langsung dengan ABHA ID.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Aplikasi & Platform Kesehatan Utama Lainnya -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-navychakra mb-4 flex items-center gap-2">
+                    <i class="fas fa-mobile-screen-button text-saffron"></i> 2. Ekosistem Aplikasi Kesehatan Digital India
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <!-- ABHA App -->
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-saffron flex flex-col justify-between">
+                        <div>
+                            <span class="font-bold text-navychakra block text-sm mb-1">ABHA App & ID</span>
+                            <p class="text-gray-600 mb-2">14 digit Identitas Kesehatan Digital warga India. Berfungsi sebagai loker rekam medis digital (PHR) yang terintegrasi secara nasional.</p>
+                        </div>
+                        <span class="text-[10px] text-saffron font-semibold">Komponen Utama ABDM</span>
+                    </div>
+
+                    <!-- CoWIN & U-WIN -->
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-indiagreen flex flex-col justify-between">
+                        <div>
+                            <span class="font-bold text-navychakra block text-sm mb-1">CoWIN & U-WIN Portal</span>
+                            <p class="text-gray-600 mb-2">Platform digital skala masif untuk pencatatan dan sertifikasi vaksinasi COVID-19 (CoWIN) serta imunisasi rutin ibu-anak (U-WIN).</p>
+                        </div>
+                        <span class="text-[10px] text-indiagreen font-semibold">Sistem Imunisasi Digital</span>
+                    </div>
+
+                    <!-- Ni-kshay App -->
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-navychakra flex flex-col justify-between">
+                        <div>
+                            <span class="font-bold text-navychakra block text-sm mb-1">Ni-kshay Platform</span>
+                            <p class="text-gray-600 mb-2">Aplikasi pemantauan pasien Tuberkulosis (TB) nasional untuk melacak kepatuhan minum obat, penyaluran insentif gizi, dan kepatuhan pengobatan.</p>
+                        </div>
+                        <span class="text-[10px] text-navychakra font-semibold">Mendukung NTEP India</span>
+                    </div>
+
+                    <!-- e-RaktKosh -->
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-spicegold flex flex-col justify-between">
+                        <div>
+                            <span class="font-bold text-navychakra block text-sm mb-1">e-RaktKosh</span>
+                            <p class="text-gray-600 mb-2">Portal web & aplikasi terpusat yang menghubungkan stok kantong darah seluruh bank darah (blood bank) nasional secara real-time.</p>
+                        </div>
+                        <span class="text-[10px] text-spicegold font-semibold">Manajemen Donor Darah</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Tabel Aplikasi Kesehatan, Fitur Teknologi, dan Dampak Keperawatan -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-navychakra mb-4 flex items-center gap-2">
+                    <i class="fas fa-table text-indiagreen"></i> 3. Ringkasan Platform Digital, Teknologi, dan Peran Keperawatan
+                </h3>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-navychakra text-white">
+                                <th class="p-3 rounded-tl-lg">Nama Aplikasi / Platform</th>
+                                <th class="p-3">Teknologi Utama</th>
+                                <th class="p-3">Fungsi & Operasional</th>
+                                <th class="p-3 rounded-tr-lg">Dampak pada Keperawatan Transkultural</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <!-- Row 1 -->
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-saffron">
+                                    eSanjeevani
+                                    <span class="block text-[10px] text-gray-500 font-normal">MoHFW & C-DAC</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Cloud-based Tele-consultation<br>
+                                    • Video & Audio Encrypted Call<br>
+                                    • Digital e-Prescription (PDF)
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Menghubungkan pasien/kader kesehatan di desa secara jarak jauh dengan dokter spesialis di kota.
+                                </td>
+                                <td class="p-3 font-bold text-navychakra">
+                                    Perawat sebagai 'Spoke Facilitator'
+                                    <span class="block text-[10px] text-gray-500 font-normal">Perawat desa mendampingi pasien lansia/buta huruf saat konsultasi online.</span>
+                                </td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-indiagreen">
+                                    ABHA (Ayushman Bharat Health Account)
+                                    <span class="block text-[10px] text-gray-500 font-normal">National Health Authority</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Unified Health Interface (UHI)<br>
+                                    • Interoperable Health Records<br>
+                                    • QR Code Scan & Share
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Membuat ID unik 14 digit bagi warga untuk menyimpan rekam medis digital secara aman dan portabel.
+                                </td>
+                                <td class="p-3 font-bold text-saffron">
+                                    Akses Riwayat Medis Lintas Wilayah
+                                    <span class="block text-[10px] text-gray-500 font-normal">Perawat mudah melihat riwayat alergi dan penyakit pasien pendatang/migran.</span>
+                                </td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-navychakra">
+                                    U-WIN & CoWIN
+                                    <span class="block text-[10px] text-gray-500 font-normal">MoHFW India</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Real-time Vaccine Tracking<br>
+                                    • Automated SMS Reminders<br>
+                                    • QR-verified Digital Certificate
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Mencatat dan menjadwalkan imunisasi bayi, balita, serta ibu hamil secara terpusat.
+                                </td>
+                                <td class="p-3 font-bold text-indiagreen">
+                                    Pencegahan Putus Imunisasi
+                                    <span class="block text-[10px] text-gray-500 font-normal">Memudahkan kader ASHA/perawat melacak anak yang terlambat dapat vaksin.</span>
+                                </td>
+                            </tr>
+                            <!-- Row 4 -->
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-spicegold">
+                                    Ni-kshay
+                                    <span class="block text-[10px] text-gray-500 font-normal">NTEP India</span>
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    • Direct Benefit Transfer (DBT)<br>
+                                    • AI-driven Treatment Adherence<br>
+                                    • Patient Tracking Database
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    Memantau pengobatan TB dan menyalurkan bantuan dana gizi (Nikshay Poshan Yojana) langsung ke bank pasien.
+                                </td>
+                                <td class="p-3 font-bold text-saffron">
+                                    Pengawasan Menelan Obat (DOTS Digital)
+                                    <span class="block text-[10px] text-gray-500 font-normal">Memastikan pasien TB daerah terpencil disiplin menyelesaikan pengobatan.</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- BAGIAN 5: AYURVEDA & SISTEM PENGOBATAN TRADISIONAL INDIA (AYUSH) -->
+        <div id="main-content-bagian5" class="main-tab-content hidden space-y-6">
+
+            <!-- Card Header AYUSH -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-indiagreen">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-indiagreen text-white flex items-center justify-center font-bold text-xl">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-saffron font-bold uppercase tracking-wider">Kementerian Pengobatan Tradisional</span>
+                        <h3 class="text-xl font-bold text-navychakra">Ministry of AYUSH & Sistem Ayurveda</h3>
+                        <p class="text-xs text-gray-500">
+                            Sistem layanan kesehatan holistik berbasis kearifan lokal yang diakui secara legal dan diintegrasikan ke dalam pelayanan kesehatan nasional India.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 1: Konsep Dasar Ayurveda -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3 mb-4 pb-2 border-b">
+                    <div class="w-10 h-10 rounded-xl bg-saffron text-white flex items-center justify-center font-bold">
+                        <i class="fas fa-yin-yang"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-navychakra">1. Konsep Dasar & Filosofi Ayurveda</h3>
+                        <p class="text-xs text-gray-500">Ayus (Kehidupan) + Veda (Pengetahuan) — Ilmu Pengetahuan tentang Kehidupan</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mb-4">
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-saffron">
+                        <span class="font-bold text-saffron block text-sm mb-1">Vata Dosha</span>
+                        <span class="text-[10px] bg-saffron/20 text-saffron font-semibold px-2 py-0.5 rounded inline-block mb-2">Elemen Udara & Ruang</span>
+                        <p class="text-gray-600 leading-relaxed">Mengontrol pergerakan sel tubuh, sirkulasi darah, pernapasan, dan aktivitas syaraf.</p>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-spicegold">
+                        <span class="font-bold text-spicegold block text-sm mb-1">Pitta Dosha</span>
+                        <span class="text-[10px] bg-spicegold/20 text-spicegold font-semibold px-2 py-0.5 rounded inline-block mb-2">Elemen Api & Air</span>
+                        <p class="text-gray-600 leading-relaxed">Mengontrol pencernaan (Agni), metabolisme tubuh, regulasi suhu, dan pengolahan nutrisi.</p>
+                    </div>
+                    <div class="p-4 bg-warmivory rounded-xl border-t-4 border-indiagreen">
+                        <span class="font-bold text-indiagreen block text-sm mb-1">Kapha Dosha</span>
+                        <span class="text-[10px] bg-indiagreen/20 text-indiagreen font-semibold px-2 py-0.5 rounded inline-block mb-2">Elemen Air & Tanah</span>
+                        <p class="text-gray-600 leading-relaxed">Mengontrol struktur tubuh, pertumbuhan fisik, kelembapan, sendi, dan imunitas alami.</p>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-warmivory rounded-xl border border-gray-200 text-xs">
+                    <strong class="text-navychakra block text-sm mb-1"><i class="fas fa-info-circle text-saffron"></i> Prinsip Sehat & Sakit menurut Ayurveda</strong>
+                    <p class="text-gray-600 leading-relaxed">
+                        Kesehatan dipandang sebagai kondisi keseimbangan harmonis antara ketiga dosha (Tridosha), fungsi pencernaan (Agni), jaringan tubuh (Dhatu), dan pembuangan sisa (Mala). Penyakit timbul akibat ketidakseimbangan dosha yang dipicu oleh pola makan tidak sesuai, gaya hidup buruk, stres, atau perubahan musim.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 2: Pengenalan Kementerian AYUSH -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-navychakra mb-4 flex items-center gap-2">
+                    <i class="fas fa-sitemap text-indiagreen"></i> 2. Sistem Pengobatan Tradisional AYUSH
+                </h3>
+
+                <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                    Kementerian AYUSH dibentuk khusus oleh Pemerintah India untuk mempromosikan, mengontrol mutu, dan mengembangkan sistem medis tradisional lokal:
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs text-center">
+                    <div class="p-3 bg-warmivory rounded-xl border border-saffron/30">
+                        <span class="font-extrabold text-saffron text-base block">A</span>
+                        <strong class="text-navychakra block">Ayurveda</strong>
+                        <span class="text-[10px] text-gray-500">Pengobatan Herbal & Dosha</span>
+                    </div>
+                    <div class="p-3 bg-warmivory rounded-xl border border-indiagreen/30">
+                        <span class="font-extrabold text-indiagreen text-base block">Y</span>
+                        <strong class="text-navychakra block">Yoga & Naturopathy</strong>
+                        <span class="text-[10px] text-gray-500">Olah Tubuh & Alami</span>
+                    </div>
+                    <div class="p-3 bg-warmivory rounded-xl border border-navychakra/30">
+                        <span class="font-extrabold text-navychakra text-base block">U</span>
+                        <strong class="text-navychakra block">Unani</strong>
+                        <span class="text-[10px] text-gray-500">Pengobatan Perso-Arab</span>
+                    </div>
+                    <div class="p-3 bg-warmivory rounded-xl border border-spicegold/30">
+                        <span class="font-extrabold text-spicegold text-base block">S</span>
+                        <strong class="text-navychakra block">Siddha</strong>
+                        <span class="text-[10px] text-gray-500">Sistem Tradisional Selatan</span>
+                    </div>
+                    <div class="p-3 bg-warmivory rounded-xl border border-saffron/30">
+                        <span class="font-extrabold text-saffron text-base block">H</span>
+                        <strong class="text-navychakra block">Homeopathy</strong>
+                        <span class="text-[10px] text-gray-500">Sistem Serupa Menyembuhkan</span>
+                    </div>
+                    <div class="p-3 bg-warmivory rounded-xl border border-indiagreen/30">
+                        <span class="font-extrabold text-indiagreen text-base block">S</span>
+                        <strong class="text-navychakra block">Sowa-Rigpa</strong>
+                        <span class="text-[10px] text-gray-500">Pengobatan Himalaya</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Integrasi Ayurveda dalam Layanan Keperawatan Transkultural -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-navychakra mb-4 flex items-center gap-2">
+                    <i class="fas fa-hand-holding-heart text-saffron"></i> 3. Integrasi Ayurveda dalam Praktik Keperawatan
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-saffron space-y-2">
+                        <strong class="text-saffron text-sm block"><i class="fas fa-pills"></i> Asesmen Interaksi Herbal-Obat</strong>
+                        <p class="text-gray-600 leading-relaxed">
+                            Banyak pasien India mengonsumsi racikan herbal seperti <em>Ashwagandha</em>, <em>Turmeric/Kunyit</em>, atau <em>Tulsi</em> bersamaan dengan obat konvensional. Perawat bertugas mengkaji riwayat konsumsi herbal untuk menghindari efek samping (misalnya risiko perdarahan atau interaksi hepatotoksik).
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-indiagreen space-y-2">
+                        <strong class="text-indiagreen text-sm block"><i class="fas fa-utensils"></i> Pemenuhan Diet Sattvic & Ahara</strong>
+                        <p class="text-gray-600 leading-relaxed">
+                            Makanan dalam Ayurveda dipandang sebagai obat (Ahara). Perawat memfasilitasi diet vegetaris hangat, segar, dan berdasar kebutuhan dosha pasien guna mendukung proses pemulihan fisik dan mental selama perawatan di fasilitas kesehatan.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-navychakra space-y-2">
+                        <strong class="text-navychakra text-sm block"><i class="fas fa-spa"></i> Terapi Komplementer Panchakarma & Abhyanga</strong>
+                        <p class="text-gray-600 leading-relaxed">
+                            Mendukung penggunaan terapi pembersihan/detoksifikasi (Panchakarma) dan pijat minyak herbal (Abhyanga) yang direkomendasikan dokter AYUSH untuk manajemen nyeri kronis, stres, atau rehabilitasi pascastroke.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-spicegold space-y-2">
+                        <strong class="text-spicegold text-sm block"><i class="fas fa-building-circle-check"></i> Dukungan Kolaborasi WHO GCTM</strong>
+                        <p class="text-gray-600 leading-relaxed">
+                            Dengan berdirinya <em>WHO Global Centre for Traditional Medicine</em> di India, perawat memanfaatkan acuan ICD-11 Module 2 (Traditional Medicine) untuk pencatatan asuhan keperawatan yang berbasis bukti ilmiah.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- BAGIAN 6: REFLEKSI KEPERAWATAN INDONESIA -->
+        <div id="main-content-bagian6" class="main-tab-content hidden space-y-6">
+
+            <!-- Header Refleksi -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-saffron">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-saffron text-white flex items-center justify-center font-bold text-xl">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-indiagreen font-bold uppercase tracking-wider">Refleksi & Pembelajaran Strategis</span>
+                        <h3 class="text-xl font-bold text-navychakra">Pelajaran dari India untuk Praktik Keperawatan di Indonesia</h3>
+                        <p class="text-xs text-gray-500">
+                            Mengintegrasikan Pengobatan Tradisional (Jamu/Komplementer) dan Kesehatan Digital (SatuSehat) dalam Asuhan Keperawatan Indonesia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 1: Komparasi Sistem Kesehatan Digital & Pengobatan Tradisional -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-navychakra mb-4 flex items-center gap-2">
+                    <i class="fas fa-scale-balanced text-saffron"></i> 1. Komparasi Sistem: India vs Indonesia
+                </h3>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-navychakra text-white">
+                                <th class="p-3 rounded-tl-lg">Komponen Kunci</th>
+                                <th class="p-3">Inisiatif India (Model AYUSH & ABDM)</th>
+                                <th class="p-3 rounded-tr-lg">Kondisi & Potensi Indonesia (SatuSehat & Jamu)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-saffron">Identitas Digital Pasien</td>
+                                <td class="p-3 text-gray-600">
+                                    <strong>ABHA ID</strong>: Integrasi rekam medis 14 digit secara nasional berbasis cloud.
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    <strong>SatuSehat ID (NIK)</strong>: Platform transformasi digital Kemenkes RI yang mengintegrasikan rekam medis elektronik (RME) faskes.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-indiagreen">Telemedisin Pelosok/Desa</td>
+                                <td class="p-3 text-gray-600">
+                                    <strong>eSanjeevani</strong>: Menghubungkan perawat desa di Health & Wellness Center langsung ke dokter spesialis.
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    <strong>Telemedisin Puskesmas & Teman Lapor</strong>: Perlu penguatan optimalisasi peran perawat di daerah 3T (Terdepan, Terluar, Tertinggal).
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-warmivory">
+                                <td class="p-3 font-bold text-navychakra">Integrasi Pengobatan Tradisional</td>
+                                <td class="p-3 text-gray-600">
+                                    <strong>Kementerian AYUSH</strong>: Ayurveda memiliki standar kurikulum, RS resmi, dan regulasi saintifikasi ketat.
+                                </td>
+                                <td class="p-3 text-gray-600">
+                                    <strong>Kemenkes RI (BKTM & Pelayanan Kesehatan Tradisional)</strong>: Pengembangan Jamu, Herbal Terstandar (OHT), dan Fitofarmaka.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Card 2: Implikasi Penerapan Bagi Keperawatan Indonesia -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-navychakra mb-4 flex items-center gap-2">
+                    <i class="fas fa-user-nurse text-indiagreen"></i> 2. Langkah Konkret untuk Keperawatan Indonesia
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <!-- Point 1 -->
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-saffron space-y-2">
+                        <strong class="text-saffron text-sm block flex items-center gap-2">
+                            <i class="fas fa-mortar-pestle"></i> Pengkajian Keperawatan Berbasis Saintifikasi Jamu
+                        </strong>
+                        <p class="text-gray-600 leading-relaxed">
+                            Menerapkan integrasi pengkajian asuhan keperawatan mandiri terkait konsumsi herbal/Jamu tradisional pasien (seperti kunyit asam, temulawak, jahe) untuk mendeteksi potensi efek komplementer atau interaksi obat modern, serupa dengan yang dilakukan pada pasien Ayurveda.
+                        </p>
+                    </div>
+
+                    <!-- Point 2 -->
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-indiagreen space-y-2">
+                        <strong class="text-indiagreen text-sm block flex items-center gap-2">
+                            <i class="fas fa-laptop-medical"></i> Perawat sebagai Fasilitator Health Literacy Digital
+                        </strong>
+                        <p class="text-gray-600 leading-relaxed">
+                            Mengadopsi peran perawat desa India (CHO) dalam menjembatani kesenjangan digital. Perawat komunitas Indonesia (Puskesmas/Posyandu) menjadi fasilitator utama dalam mengedukasi warga pedesaan atau lansia untuk memanfaatkan platform <strong>SatuSehat Mobile</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Point 3 -->
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-navychakra space-y-2">
+                        <strong class="text-navychakra text-sm block flex items-center gap-2">
+                            <i class="fas fa-book-journal-whills"></i> Dokumentasi Keperawatan Transkultural Komplementer
+                        </strong>
+                        <p class="text-gray-600 leading-relaxed">
+                            Mendorong Perawat Indonesia untuk mencatat diagnosis dan intervensi keperawatan komplementer (seperti akupresur, pijat bayi, herbal hangat) ke dalam Rekam Medis Elektronik (RME) yang terintegrasi dengan SDKI, SLKI, dan SIKI.
+                        </p>
+                    </div>
+
+                    <!-- Point 4 -->
+                    <div class="p-4 bg-warmivory rounded-xl border-l-4 border-spicegold space-y-2">
+                        <strong class="text-spicegold text-sm block flex items-center gap-2">
+                            <i class="fas fa-heart-pulse"></i> Pendekatan Holistik 'Mind-Body-Spirit'
+                        </strong>
+                        <p class="text-gray-600 leading-relaxed">
+                            Meneladani filosofi Ayurveda dan Yoga dalam pengelolaan penyakit kronis (Diabetes, Hipertensi) melalui modifikasi gaya hidup komprehensif yang memadukan olah napas, manajemen stres, dan kebiasaan nutrisi lokal Indonesia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navychakra text-white text-xs py-6 border-t border-saffron mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-semibold text-saffron">Dashboard Keperawatan Transkultural — Model Pelayanan Kesehatan India</p>
+            <p class="text-gray-400">© Kelompok 1 Keperawatan Transkultural. Seluruh materi disesuaikan untuk media pembelajaran interaktif.</p>
+        </div>
+    </footer>
+
+    <!-- Script Logika Tab & Chart.js -->
+    <script>
+        // Logika Perpindahan Tab Utama
+        function switchMainTab(tabId) {
+            document.querySelectorAll('.main-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('text-gray-600');
+            });
+
+            const selectedContent = document.getElementById('main-content-' + tabId);
+            const selectedBtn = document.getElementById('main-tab-' + tabId);
+
+            if(selectedContent) selectedContent.classList.remove('hidden');
+            if(selectedBtn) {
+                selectedBtn.classList.add('active');
+                selectedBtn.classList.remove('text-gray-600');
+            }
+        }
+
+        // Logika Perpindahan Sub Tab Bagian 1
+        function switchSubTab(subTabId) {
+            document.querySelectorAll('.sub-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            const selectedSubContent = document.getElementById('sub-content-' + subTabId);
+            const selectedSubBtn = document.getElementById('sub-tab-' + subTabId);
+
+            if(selectedSubContent) selectedSubContent.classList.remove('hidden');
+            if(selectedSubBtn) selectedSubBtn.classList.add('active');
+        }
+
+        // Inisialisasi Grafik Chart.js saat Halaman Dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            // Chart 1: Demografi Sebaran Tempat Tinggal
+            const ctxSebaran = document.getElementById('chartSebaran');
+            if (ctxSebaran) {
+                new Chart(ctxSebaran, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Pedesaan (Rural)', 'Perkotaan (Urban)'],
+                        datasets: [{
+                            data: [64, 36],
+                            backgroundColor: ['#138808', '#000080'],
+                            borderWidth: 2,
+                            borderColor: '#ffffff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+            }
+
+            // Chart 2: Komposisi Agama
+            const ctxAgama = document.getElementById('chartAgama');
+            if (ctxAgama) {
+                new Chart(ctxAgama, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Hindu', 'Islam', 'Kristen', 'Sikh', 'Lainnya (Buddha, Jain, dll)'],
+                        datasets: [{
+                            data: [79.8, 14.2, 2.3, 1.7, 2.0],
+                            backgroundColor: ['#FF9933', '#138808', '#000080', '#D4AC0D', '#94a3b8'],
+                            borderWidth: 2,
+                            borderColor: '#ffffff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
